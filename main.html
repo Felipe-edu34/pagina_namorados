@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para o Meu Amor ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+    <canvas id="particle-canvas"></canvas>
+    <div id="heart-rain"></div>
+    <audio id="musica-fundo"></audio>
+    <div id="love-explosion"></div>
+     
+    <div id="gift-overlay">
+        <div class="gift-ambient"></div>
+        <div class="gift-content">
+            <h2 class="gift-prompt">
+                Você recebeu algo especial...
+                <span>Toque para abrir</span>
+            </h2>
+     
+            <div class="gift-wrapper" onclick="abrirPresente()">
+                <div class="gift-shimmer"></div>
+                <div class="gift-bow"></div>
+                <div class="gift-lid"></div>
+                <div class="gift-box"></div>
+            </div>
+        </div>
+    </div>
+     
+    <div id="transition-screen">
+        <div id="polaroids-container">
+            <div class="polaroid p1">
+                <img src="fotos/primeiro-ano/20220730_210902.jpg"
+                     onerror="this.src='https://via.placeholder.com/200x200/2b0a2e/ff80ab?text=❤'" alt="Foto 1">
+                <p>Tudo começou com um 'oi'...</p>
+            </div>
+            <div class="polaroid p2">
+                <img src="fotos/viagens/viagem1.jpg"
+                     onerror="this.src='https://via.placeholder.com/200x200/2b0a2e/ff80ab?text=❤'" alt="Foto 2">
+                <p>E de repente, virou amor...</p>
+            </div>
+            <div class="polaroid p3">
+                <img src="fotos/inesqueciveis/momento1.jpg"
+                     onerror="this.src='https://via.placeholder.com/200x200/2b0a2e/ff80ab?text=❤'" alt="Foto 3">
+                <p>A minha história favorita.</p>
+            </div>
+        </div>
+     
+        <div id="loading-container" class="hidden">
+            <div class="heart-loader" id="heart-loader">
+                <svg class="heart-svg bg-heart" viewBox="0 0 24 24">
+                    <path fill="rgba(194,24,91,0.12)"
+                          d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <div class="heart-fill-wrapper" id="heart-fill-wrapper">
+                    <svg class="heart-svg fill-heart" viewBox="0 0 24 24">
+                        <path fill="url(#heartGrad)"
+                              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        <defs>
+                            <linearGradient id="heartGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                                <stop offset="0%" stop-color="#c2185b"/>
+                                <stop offset="100%" stop-color="#ff4081"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            <p id="loading-text">Iniciando download de memórias...</p>
+        </div>
+    </div>
+     
+    <div id="main-site" class="hidden-site">
+     
+        <section class="hero-section">
+            <div class="hero-eyebrow">Feliz Dia dos Namorados</div>
+            <h1 class="hero-title">
+                Nossa<br>
+                <em>História</em>
+            </h1>
+            <p class="hero-subtitle">
+                Cada momento ao seu lado é minha parte favorita do dia.
+                Cada sorriso seu, o meu motivo preferido.
+            </p>
+        </section>
+     
+        <section class="player-section">
+            <div class="section-label">Nossa trilha sonora</div>
+            <div class="player-spotify">
+                <div class="player-header">
+                    <div class="player-left">
+                        <div class="album-art" id="album-art">🎵</div>
+                        <div class="song-info">
+                            <h3 id="nome-musica">Apenas Mais uma de Amor</h3>
+                            <p id="artista-musica">Lulu Santos</p>
+                        </div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div class="equalizer" id="equalizer">
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                            <div class="eq-bar"></div>
+                        </div>
+                        <span class="material-symbols-outlined heart-icon" onclick="curtir(this)">favorite</span>
+                    </div>
+                </div>
+     
+                <div class="progress-container">
+                    <span class="time-text" id="tempo-atual">0:00</span>
+                    <input type="range" class="progress-bar-spotify" id="barra-progresso" min="0" max="100" value="0" oninput="mudarProgresso()">
+                    <span class="time-text" id="tempo-total">0:00</span>
+                </div>
+     
+                <div class="controls-spotify">
+                    <button class="ctrl-btn icon-small"><span class="material-symbols-outlined">shuffle</span></button>
+                    <button class="ctrl-btn" onclick="voltarMusica()"><span class="material-symbols-outlined">skip_previous</span></button>
+                    <button class="ctrl-btn play-btn-spotify" onclick="tocarMusica()">
+                        <span class="material-symbols-outlined" id="icone-play">play_arrow</span>
+                    </button>
+                    <button class="ctrl-btn" onclick="proximaMusica()"><span class="material-symbols-outlined">skip_next</span></button>
+                    <button class="ctrl-btn icon-small"><span class="material-symbols-outlined">repeat</span></button>
+                </div>
+            </div>
+        </section>
+        
+        <div class="divider"><span class="divider-heart">♥</span></div>
+ 
+        <section class="timeline-section">
+            <div class="section-label">Nossa linha do tempo</div>
+            <div class="timeline">
+                <div class="memory-card">
+                    <div class="card-dot">
+                        <div class="dot-ring">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-date">19 de novembro de 2021</div>
+                        <h3>O dia em que tudo começou</h3>
+                        <p>O universo decidiu cruzar nossos caminhos no mundo digital. Um encontro simples que mudaria tudo.</p>
+                    </div>
+                </div>
+
+                <div class="memory-card">
+                    <div class="card-dot">
+                        <div class="dot-ring">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-date">05 de dezembro de 2021</div>
+                        <h3>Nosso primeiro encontro</h3>
+                        <p>O dia em que as telas ficaram pequenas e finalmente pudemos nos abraçar no mundo real. Inesquecível!</p>
+                    </div>
+                </div>
+
+                <div class="memory-card">
+                    <div class="card-dot">
+                        <div class="dot-ring">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-date">05 de janeiro de 2022</div>
+                        <h3>O melhor sim da minha vida</h3>
+                        <p>O início oficial da nossa linda jornada. Desde então, cada dia ao seu lado é um presente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"><span class="divider-heart">♥</span></div>
+     
+        <section style="width:100%;margin-bottom:clamp(20px,4vw,50px);">
+            <div class="section-label">Nossas memórias</div>
+     
+            <div class="gallery-section">
+                <div class="gallery-header">
+                    <span class="gallery-title">Nosso primeiro ano</span>
+                    <span class="gallery-count">19 momentos</span>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="slide-btn prev" onclick="slideCarrossel(this, -1)"><span class="material-symbols-outlined">chevron_left</span></button>
+                    <div class="scroll-container">
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220730_210902.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220805_122743.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220805_122918.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220908_231124.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220908_231136.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220922_110254.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220922_191105.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20220922_191540.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20221224_202201.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20221224_215159.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20230101_181325.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/20230105_205232.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/IMG_20220123_192151300.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/IMG_20220123_192154005.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/IMG_20220319_193501635.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/IMG_20221102_152741_783.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/IMG_20221102_152815_240.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/IMG_20220202_085543322_HDR.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/primeiro-ano/Screenshot_20220714-190510_Instagram.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/c2185b?text=❤'"></div>
+                    </div>
+                    <button class="slide-btn next" onclick="slideCarrossel(this, 1)"><span class="material-symbols-outlined">chevron_right</span></button>
+                </div>
+            </div>
+     
+            <div class="gallery-section">
+                <div class="gallery-header">
+                    <span class="gallery-title">Nossas viagens</span>
+                    <span class="gallery-count">11 aventuras</span>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="slide-btn prev" onclick="slideCarrossel(this, -1)"><span class="material-symbols-outlined">chevron_left</span></button>
+                    <div class="scroll-container">
+                        <div class="scroll-item"><img src="fotos/viagens/viagem1.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem2.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem3.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem4.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem5.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem6.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem7.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem8.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem9.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem10.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/viagens/viagem11.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/e91e63?text=❤'"></div>
+                    </div>
+                    <button class="slide-btn next" onclick="slideCarrossel(this, 1)"><span class="material-symbols-outlined">chevron_right</span></button>
+                </div>
+            </div>
+     
+            <div class="gallery-section">
+                <div class="gallery-header">
+                    <span class="gallery-title">Momentos Inesquecíveis</span>
+                    <span class="gallery-count">21 lembranças</span>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="slide-btn prev" onclick="slideCarrossel(this, -1)"><span class="material-symbols-outlined">chevron_left</span></button>
+                    <div class="scroll-container">
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento1.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento2.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento3.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento4.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento5.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento6.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento7.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento8.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento9.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento10.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento11.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento12.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento13.webp" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento14.webp" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento15.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento16.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento17.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento18.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento19.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento20.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                        <div class="scroll-item"><img src="fotos/inesqueciveis/momento21.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/ff4081?text=❤'"></div>
+                    </div>
+                    <button class="slide-btn next" onclick="slideCarrossel(this, 1)"><span class="material-symbols-outlined">chevron_right</span></button>
+                </div>
+            </div>
+     
+            <div class="gallery-section">
+                <div class="gallery-header">
+                    <span class="gallery-title">Nossos momentos cômicos 😂</span>
+                    <span class="gallery-count">11 gargalhadas</span>
+                </div>
+                <div class="carousel-wrapper">
+                    <button class="slide-btn prev" onclick="slideCarrossel(this, -1)"><span class="material-symbols-outlined">chevron_left</span></button>
+                    <div class="scroll-container">
+                        <div class="scroll-item"><img src="fotos/comicos/comico1.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico2.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico3.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico4.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico5.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico6.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico7.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico8.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico9.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico10.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                        <div class="scroll-item"><img src="fotos/comicos/comico11.jpg" onerror="this.src='https://via.placeholder.com/280x200/0a0409/7b1fa2?text=😂'"></div>
+                    </div>
+                    <button class="slide-btn next" onclick="slideCarrossel(this, 1)"><span class="material-symbols-outlined">chevron_right</span></button>
+                </div>
+            </div>
+        </section>
+     
+        <div class="divider"><span class="divider-heart">♥</span></div>
+     
+        <section class="smile-section">
+            <div class="smile-card">
+                <h4 class="smile-title">Precisa de um motivo para sorrir?</h4>
+                <div class="smile-box">
+                    <p id="motivo-texto"></p>
+                </div>
+                <button class="btn-smile" onclick="gerarMotivo()">
+                    <span>Me faça sorrir</span>
+                    <span>✨</span>
+                </button>
+            </div>
+        </section>
+     
+        <section class="counter-section">
+            <p class="counter-title">Tempo juntos desde o nosso início:</p>
+            <div class="counter">
+                <div class="counter-box">
+                    <span id="dias">00</span>
+                    <label>Dias</label>
+                </div>
+                <div class="counter-box">
+                    <span id="horas">00</span>
+                    <label>Horas</label>
+                </div>
+                <div class="counter-box">
+                    <span id="minutos">00</span>
+                    <label>Min</label>
+                </div>
+                <div class="counter-box">
+                    <span id="segundos">00</span>
+                    <label>Seg</label>
+                </div>
+            </div>
+        </section>
+     
+        <div class="divider"><span class="divider-heart">♥</span></div>
+     
+        <section class="quiz-section">
+            <div class="quiz-card">
+                <p class="quiz-title" id="pergunta">Você aceita continuar sendo a dona do meu coração?</p>
+                <div class="buttons">
+                    <button class="btn" id="btn-sim" onclick="aceitou()">SIM!</button>
+                    <button class="btn" id="btn-nao" onmouseover="fuga()" onclick="fuga()">NÃO</button>
+                </div>
+            </div>
+        </section>
+     
+    </div><div id="image-modal" class="modal" onclick="fecharModal(event)">
+        <span class="close-modal" onclick="fecharModal(event)">&times;</span>
+        <button class="modal-nav-btn prev-btn" onclick="fotoAnterior(event)">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <img class="modal-content" id="img-modal-target" alt="">
+        <button class="modal-nav-btn next-btn" onclick="fotoProxima(event)">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+        <div class="modal-indicator" id="modal-indicator"></div>
+    </div>
+ 
+    <script src="script.js" defer></script>
+</body>
+</html>
