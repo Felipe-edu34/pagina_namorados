@@ -931,6 +931,7 @@ body {
     background: linear-gradient(135deg, transparent 60%, rgba(194,24,91,0.15) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
  
 .scroll-item:hover {
