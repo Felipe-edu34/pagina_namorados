@@ -371,26 +371,7 @@
         <div class="modal-indicator" id="modal-indicator"></div>
     </div>
  
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const modal = document.getElementById("image-modal");
-            const modalImg = document.getElementById("img-modal-target");
-            
-            if (modal && modalImg) {
-                const todasAsFotos = document.querySelectorAll(".scroll-item img, .polaroid img");
-                
-                todasAsFotos.forEach(img => {
-                    img.style.cursor = "pointer";
-                    img.addEventListener("click", function(e) {
-                        e.stopPropagation();
-                        modalImg.src = this.src;
-                        modal.style.display = "flex";
-                        modal.classList.add("active", "show");
-                    });
-                });
-            }
-        });
-    </script>
+    
 
     <script src="script.js" defer></script>
 </body>

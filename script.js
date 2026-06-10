@@ -73,7 +73,7 @@ setInterval(criarCoracao, 700);
 // PLAYER DE MÚSICA — ESTILO SPOTIFY
 // =====================================================
 const playlist = [
-    { nome: "Apenas Mais uma de Amor", artista: "Lulu Santos", arquivo: "musicas/musica1.mp4" },
+    { nome: "Sera que é amor", artista: "Arlindo Cruz", arquivo: "musicas/musica1.mp4" },
     { nome: "Nossa Música 2", artista: "Nós Dois", arquivo: "musicas/musica2.mp4" },
     { nome: "Nossa Música 3", artista: "Nós Dois", arquivo: "musicas/musica3.mp4" },
     { nome: "Nossa Música 4", artista: "Nós Dois", arquivo: "musicas/musica4.mp4" },
@@ -309,7 +309,7 @@ function aceitou() {
 }
  
 // =====================================================
-// CARROSSEL E LIGHTBOX DE FOTOS
+// CARROSSEL E LIGHTBOX DE FOTOS (CORRIGIDO E UNIFICADO)
 // =====================================================
 function slideCarrossel(btn, dir) {
     const container = btn.closest('.carousel-wrapper').querySelector('.scroll-container');
@@ -319,56 +319,94 @@ function slideCarrossel(btn, dir) {
 let fotosDoAlbumAtual = [];
 let indiceFotoAtual   = 0;
  
-document.addEventListener('DOMContentLoaded', () => {
+function inicializarLightbox() {
+    const modal = document.getElementById('image-modal');
+    if (!modal) return;
+
+    // Configura o clique para as fotos dos carrosséis (divididos por categoria)
     document.querySelectorAll('.scroll-container').forEach(container => {
         const imgs = container.querySelectorAll('.scroll-item img');
         imgs.forEach((img, i) => {
-            img.addEventListener('click', () => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', (e) => {
+                e.stopPropagation();
                 fotosDoAlbumAtual = Array.from(imgs).map(im => im.src);
                 indiceFotoAtual   = i;
                 abrirModal();
             });
         });
     });
-});
+
+    // Configura o clique para as fotos das Polaroids da tela de transição
+    const polaroids = document.querySelectorAll('.polaroid img');
+    polaroids.forEach((img, i) => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fotosDoAlbumAtual = Array.from(polaroids).map(im => im.src);
+            indiceFotoAtual   = i;
+            abrirModal();
+        });
+    });
+}
+
+// Inicializa com segurança assim que a página estiver pronta
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarLightbox);
+} else {
+    inicializarLightbox();
+}
  
 function abrirModal() {
     const modal = document.getElementById('image-modal');
-    if (modal) { modal.style.display = 'flex'; atualizarFotoModal(); }
+    if (modal) { 
+        modal.style.display = 'flex'; 
+        modal.classList.add('active', 'show');
+        atualizarFotoModal(); 
+    }
 }
  
 function atualizarFotoModal() {
     const img = document.getElementById('img-modal-target');
     const ind = document.getElementById('modal-indicator');
-    if (img) img.src = fotosDoAlbumAtual[indiceFotoAtual];
-    if (ind) ind.textContent = `${indiceFotoAtual + 1} / ${fotosDoAlbumAtual.length}`;
+    if (img && fotosDoAlbumAtual[indiceFotoAtual]) {
+        img.src = fotosDoAlbumAtual[indiceFotoAtual];
+    }
+    if (ind) {
+        ind.textContent = `${indiceFotoAtual + 1} / ${fotosDoAlbumAtual.length}`;
+    }
 }
  
 function fotoProxima(e) {
     if (e) e.stopPropagation();
+    if (fotosDoAlbumAtual.length === 0) return;
     indiceFotoAtual = (indiceFotoAtual + 1) % fotosDoAlbumAtual.length;
     atualizarFotoModal();
 }
  
 function fotoAnterior(e) {
     if (e) e.stopPropagation();
+    if (fotosDoAlbumAtual.length === 0) return;
     indiceFotoAtual = (indiceFotoAtual - 1 + fotosDoAlbumAtual.length) % fotosDoAlbumAtual.length;
     atualizarFotoModal();
 }
  
 function fecharModal(e) {
-    if (e.target.id === 'image-modal' || e.target.className === 'close-modal') {
+    if (!e || e.target.id === 'image-modal' || e.target.classList.contains('close-modal') || e.target.className === 'close-modal') {
         const modal = document.getElementById('image-modal');
-        if (modal) modal.style.display = 'none';
+        if (modal) {
+            modal.style.display = 'none';
+            modal.classList.remove('active', 'show');
+        }
     }
 }
  
 document.addEventListener('keydown', e => {
     const modal = document.getElementById('image-modal');
-    if (modal && modal.style.display === 'flex') {
+    if (modal && (modal.style.display === 'flex' || modal.classList.contains('show'))) {
         if (e.key === 'ArrowRight') fotoProxima(null);
         if (e.key === 'ArrowLeft')  fotoAnterior(null);
-        if (e.key === 'Escape')     modal.style.display = 'none';
+        if (e.key === 'Escape')     fecharModal(null);
     }
 });
  

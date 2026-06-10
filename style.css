@@ -1350,4 +1350,13 @@ body {
 @media (max-width: 400px) {
     .counter { gap: 8px; }
     .counter-box { min-width: 60px; padding: 14px 12px; }
+
+}
+
+
+/* Garante que o visualizador de fotos fique na frente de absolutamente tudo */
+#image-modal {
+    position: fixed !important;
+    z-index: 999999 !important;
+    background-color: rgba(0, 0, 0, 0.9) !important;
 }
