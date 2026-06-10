@@ -172,6 +172,19 @@
                         <p>O início oficial da nossa linda jornada. Desde então, cada dia ao seu lado é um presente.</p>
                     </div>
                 </div>
+
+                <div class="memory-card">
+                    <div class="card-dot">
+                        <div class="dot-ring">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-date">21 de fevereiro de 2023</div>
+                        <h3>Nossa primeira viagem juntos</h3>
+                        <p>O primeiro de muitos destinos que exploramos lado a lado. Dias inesquecíveis cheios de sorrisos, novas descobertas e a certeza de que viajar com você é minha aventura favorita.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -364,16 +377,12 @@
             const modalImg = document.getElementById("img-modal-target");
             
             if (modal && modalImg) {
-                // Seleciona todas as imagens das galerias e dos polaroids
                 const todasAsFotos = document.querySelectorAll(".scroll-item img, .polaroid img");
                 
                 todasAsFotos.forEach(img => {
-                    // Coloca o efeito de mãozinha ao passar o mouse para indicar que é clicável
                     img.style.cursor = "pointer";
-                    
                     img.addEventListener("click", function(e) {
                         e.stopPropagation();
-                        // Alimenta o modal com o link da foto clicada e força a exibição
                         modalImg.src = this.src;
                         modal.style.display = "flex";
                         modal.classList.add("active", "show");
