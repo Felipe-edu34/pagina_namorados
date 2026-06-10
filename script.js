@@ -77,7 +77,18 @@ const playlist = [
     { nome: "Nossa Música 2", artista: "Nós Dois", arquivo: "musicas/musica2.mp4" },
     { nome: "Nossa Música 3", artista: "Nós Dois", arquivo: "musicas/musica3.mp4" },
     { nome: "Nossa Música 4", artista: "Nós Dois", arquivo: "musicas/musica4.mp4" },
-    { nome: "Nossa Música 5", artista: "Nós Dois", arquivo: "musicas/musica5.mp4" }
+    { nome: "Nossa Música 5", artista: "Nós Dois", arquivo: "musicas/musica5.mp4" },
+    { nome: "Nossa Música 6", artista: "Nós Dois", arquivo: "musicas/musica6.mp4" },
+    { nome: "Nossa Música 7", artista: "Nós Dois", arquivo: "musicas/musica7.mp4" },
+    { nome: "Nossa Música 8", artista: "Nós Dois", arquivo: "musicas/musica8.mp4" },
+    { nome: "Nossa Música 9", artista: "Nós Dois", arquivo: "musicas/musica9.mp4" },
+    { nome: "Nossa Música 10", artista: "Nós Dois", arquivo: "musicas/musica10.mp4" },
+    { nome: "Nossa Música 11", artista: "Nós Dois", arquivo: "musicas/musica11.mp4" },
+    { nome: "Nossa Música 12", artista: "Nós Dois", arquivo: "musicas/musica12.mp4" },
+    { nome: "Nossa Música 13", artista: "Nós Dois", arquivo: "musicas/musica13.mp4" },
+    { nome: "Nossa Música 14", artista: "Nós Dois", arquivo: "musicas/musica14.mp4" }
+
+
 ];
  
 let indiceMusica = 0;
