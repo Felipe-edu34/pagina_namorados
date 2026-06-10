@@ -74,19 +74,19 @@ setInterval(criarCoracao, 700);
 // =====================================================
 const playlist = [
     { nome: "Sera que é amor", artista: "Arlindo Cruz", arquivo: "musicas/musica1.mp4" },
-    { nome: "Nossa Música 2", artista: "Nós Dois", arquivo: "musicas/musica2.mp4" },
-    { nome: "Nossa Música 3", artista: "Nós Dois", arquivo: "musicas/musica3.mp4" },
-    { nome: "Nossa Música 4", artista: "Nós Dois", arquivo: "musicas/musica4.mp4" },
-    { nome: "Nossa Música 5", artista: "Nós Dois", arquivo: "musicas/musica5.mp4" },
-    { nome: "Nossa Música 6", artista: "Nós Dois", arquivo: "musicas/musica6.mp4" },
-    { nome: "Nossa Música 7", artista: "Nós Dois", arquivo: "musicas/musica7.mp4" },
-    { nome: "Nossa Música 8", artista: "Nós Dois", arquivo: "musicas/musica8.mp4" },
-    { nome: "Nossa Música 9", artista: "Nós Dois", arquivo: "musicas/musica9.mp4" },
-    { nome: "Nossa Música 10", artista: "Nós Dois", arquivo: "musicas/musica10.mp4" },
-    { nome: "Nossa Música 11", artista: "Nós Dois", arquivo: "musicas/musica11.mp4" },
-    { nome: "Nossa Música 12", artista: "Nós Dois", arquivo: "musicas/musica12.mp4" },
-    { nome: "Nossa Música 13", artista: "Nós Dois", arquivo: "musicas/musica13.mp4" },
-    { nome: "Nossa Música 14", artista: "Nós Dois", arquivo: "musicas/musica14.mp4" }
+    { nome: "Sorriso resplandecente", artista: "Ricardo", arquivo: "musicas/musica2.mp4" },
+    { nome: "Aquela saudade", artista: "Rubel", arquivo: "musicas/musica3.mp4" },
+    { nome: "Amor puro", artista: "Djavan", arquivo: "musicas/musica4.mp4" },
+    { nome: "Exagerado", artista: "Cazuza", arquivo: "musicas/musica5.mp4" },
+    { nome: "Eu sou feliz assim", artista: "Ferrugem", arquivo: "musicas/musica6.mp4" },
+    { nome: "Por você", artista: "Frejat", arquivo: "musicas/musica7.mp4" },
+    { nome: "Eu juro", artista: "Ferrugem", arquivo: "musicas/musica8.mp4" },
+    { nome: "Talisma", artista: "Iza", arquivo: "musicas/musica9.mp4" },
+    { nome: "Moça", artista: "Tiee", arquivo: "musicas/musica10.mp4" },
+    { nome: "Vicios de amor", artista: "Delacruz", arquivo: "musicas/musica11.mp4" },
+    { nome: "Dependente", artista: "Sorriso maroto", arquivo: "musicas/musica12.mp4" },
+    { nome: "Você e linda", artista: "Caetano Veloso", arquivo: "musicas/musica13.mp4" },
+    { nome: "Sorte", artista: "Diego e Victor Hugo", arquivo: "musicas/musica14.mp4" }
 ];
  
 let indiceMusica = 0;
