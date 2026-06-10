@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para o Meu Amor ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Sacramento&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0" />
+    <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
  
@@ -32,7 +32,7 @@
         </div>
     </div>
      
-    <div id="transition-screen">
+    <div id="transition-screen" class="hidden">
         <div id="polaroids-container">
             <div class="polaroid p1">
                 <img src="fotos/primeiro-ano/20220730_210902.jpg"
@@ -135,11 +135,7 @@
             <div class="section-label">Nossa linha do tempo</div>
             <div class="timeline">
                 <div class="memory-card">
-                    <div class="card-dot">
-                        <div class="dot-ring">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </div>
-                    </div>
+                    <div class="card-dot"><div class="dot-ring"><span class="material-symbols-outlined">favorite</span></div></div>
                     <div class="card-body">
                         <div class="card-date">19 de novembro de 2021</div>
                         <h3>O dia em que tudo começou</h3>
@@ -148,11 +144,7 @@
                 </div>
 
                 <div class="memory-card">
-                    <div class="card-dot">
-                        <div class="dot-ring">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </div>
-                    </div>
+                    <div class="card-dot"><div class="dot-ring"><span class="material-symbols-outlined">favorite</span></div></div>
                     <div class="card-body">
                         <div class="card-date">05 de dezembro de 2021</div>
                         <h3>Nosso primeiro encontro</h3>
@@ -161,11 +153,7 @@
                 </div>
 
                 <div class="memory-card">
-                    <div class="card-dot">
-                        <div class="dot-ring">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </div>
-                    </div>
+                    <div class="card-dot"><div class="dot-ring"><span class="material-symbols-outlined">favorite</span></div></div>
                     <div class="card-body">
                         <div class="card-date">05 de janeiro de 2022</div>
                         <h3>O melhor sim da minha vida</h3>
@@ -174,15 +162,11 @@
                 </div>
 
                 <div class="memory-card">
-                    <div class="card-dot">
-                        <div class="dot-ring">
-                            <span class="material-symbols-outlined">favorite</span>
-                        </div>
-                    </div>
+                    <div class="card-dot"><div class="dot-ring"><span class="material-symbols-outlined">favorite</span></div></div>
                     <div class="card-body">
                         <div class="card-date">21 de fevereiro de 2023</div>
                         <h3>Nossa primeira viagem juntos</h3>
-                        <p>O primeiro de muitos destinos que exploramos lado a lado. Dias inesquecíveis cheios de sorrisos, novas descobertas e a certeza de que viajar com você é minha aventura favorita.</p>
+                        <p>O primeiro de muitos destinos que exploramos lado a lado. Dias inesquecíveis cheios de sorrisos.</p>
                     </div>
                 </div>
             </div>
@@ -314,7 +298,7 @@
             <div class="smile-card">
                 <h4 class="smile-title">Precisa de um motivo para sorrir?</h4>
                 <div class="smile-box">
-                    <p id="motivo-texto"></p>
+                    <p id="motivo-texto">"Clique no botão abaixo para descobrir um dos milhares de motivos..."</p>
                 </div>
                 <button class="btn-smile" onclick="gerarMotivo()">
                     <span>Me faça sorrir</span>
@@ -371,8 +355,6 @@
         <div class="modal-indicator" id="modal-indicator"></div>
     </div>
  
-    
-
     <script src="script.js" defer></script>
 </body>
 </html>
