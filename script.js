@@ -87,8 +87,6 @@ const playlist = [
     { nome: "Nossa Música 12", artista: "Nós Dois", arquivo: "musicas/musica12.mp4" },
     { nome: "Nossa Música 13", artista: "Nós Dois", arquivo: "musicas/musica13.mp4" },
     { nome: "Nossa Música 14", artista: "Nós Dois", arquivo: "musicas/musica14.mp4" }
-
-
 ];
  
 let indiceMusica = 0;
@@ -163,13 +161,18 @@ if (audio) {
     });
 }
  
+if (barraProgresso) {
+    barraProgresso.addEventListener('input', mudarProgresso);
+}
+
 function mudarProgresso() {
-    if (audio && barraProgresso) {
+    if (audio && barraProgresso && !isNaN(audio.duration)) {
         audio.currentTime = (barraProgresso.value / 100) * audio.duration;
     }
 }
  
 function curtir(el) {
+    if (!el) return;
     el.classList.toggle('liked');
     el.style.fontVariationSettings = el.classList.contains('liked') ? "'FILL' 1" : "'FILL' 0";
 }
@@ -195,8 +198,8 @@ function abrirPresente() {
     setTimeout(() => { if (!tocando) tocarMusica(); }, 400);
  
     setTimeout(() => {
-        overlay.classList.add('hidden');
-        transition.classList.remove('hidden');
+        if (overlay) overlay.classList.add('hidden');
+        if (transition) transition.classList.remove('hidden');
         iniciarPolaroids();
     }, 900);
  
@@ -312,6 +315,7 @@ function aceitou() {
 // CARROSSEL E LIGHTBOX DE FOTOS (CORRIGIDO E UNIFICADO)
 // =====================================================
 function slideCarrossel(btn, dir) {
+    if (!btn) return;
     const container = btn.closest('.carousel-wrapper').querySelector('.scroll-container');
     if (container) container.scrollLeft += dir * 300;
 }
@@ -323,7 +327,7 @@ function inicializarLightbox() {
     const modal = document.getElementById('image-modal');
     if (!modal) return;
 
-    // Configura o clique para as fotos dos carrosséis (divididos por categoria)
+    // Configura o clique para as fotos dos carrosséis
     document.querySelectorAll('.scroll-container').forEach(container => {
         const imgs = container.querySelectorAll('.scroll-item img');
         imgs.forEach((img, i) => {
@@ -337,7 +341,7 @@ function inicializarLightbox() {
         });
     });
 
-    // Configura o clique para as fotos das Polaroids da tela de transição
+    // Configura o clique para as fotos das Polaroids
     const polaroids = document.querySelectorAll('.polaroid img');
     polaroids.forEach((img, i) => {
         img.style.cursor = 'pointer';
@@ -350,7 +354,6 @@ function inicializarLightbox() {
     });
 }
 
-// Inicializa com segurança assim que a página estiver pronta
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inicializarLightbox);
 } else {
