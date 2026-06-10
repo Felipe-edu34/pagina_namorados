@@ -344,7 +344,9 @@
             </div>
         </section>
      
-    </div><div id="image-modal" class="modal" onclick="fecharModal(event)">
+    </div>
+
+    <div id="image-modal" class="modal" onclick="fecharModal(event)">
         <span class="close-modal" onclick="fecharModal(event)">&times;</span>
         <button class="modal-nav-btn prev-btn" onclick="fotoAnterior(event)">
             <span class="material-symbols-outlined">chevron_left</span>
@@ -356,6 +358,31 @@
         <div class="modal-indicator" id="modal-indicator"></div>
     </div>
  
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const modal = document.getElementById("image-modal");
+            const modalImg = document.getElementById("img-modal-target");
+            
+            if (modal && modalImg) {
+                // Seleciona todas as imagens das galerias e dos polaroids
+                const todasAsFotos = document.querySelectorAll(".scroll-item img, .polaroid img");
+                
+                todasAsFotos.forEach(img => {
+                    // Coloca o efeito de mãozinha ao passar o mouse para indicar que é clicável
+                    img.style.cursor = "pointer";
+                    
+                    img.addEventListener("click", function(e) {
+                        e.stopPropagation();
+                        // Alimenta o modal com o link da foto clicada e força a exibição
+                        modalImg.src = this.src;
+                        modal.style.display = "flex";
+                        modal.classList.add("active", "show");
+                    });
+                });
+            }
+        });
+    </script>
+
     <script src="script.js" defer></script>
 </body>
 </html>
