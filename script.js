@@ -471,3 +471,14 @@ function explosaoDeAmor() {
         }, Math.random() * 600);
     }
 }
+
+// =====================================================
+// MÓDULO DA CARTA — Controle de abertura
+// =====================================================
+function interagirCarta() {
+    const envelope = document.getElementById('envelope-main');
+    if (!envelope) return;
+    
+    // Liga ou desliga a classe 'opened'. Se clicar de novo, ela fecha!
+    envelope.classList.toggle('opened');
+}
