@@ -1364,3 +1364,33 @@ body {
     min-height: 60px;
 }
 
+/* Nova estilização elegante para os botões do Quiz */
+#btn-sim {
+    background: rgba(46, 125, 50, 0.15) !important; /* Verde elegante e transparente */
+    border: 1px solid rgba(76, 175, 80, 0.4) !important;
+    color: #81c784 !important; /* Texto verde claro que brilha no fundo escuro */
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.1);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+#btn-sim:hover {
+    background: rgba(46, 125, 50, 0.3) !important;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4) !important;
+    transform: scale(1.05);
+}
+
+#btn-nao {
+    background: rgba(194, 24, 91, 0.15) !important; /* Vermelho/Rosa escuro do próprio site */
+    border: 1px solid rgba(255, 64, 129, 0.4) !important;
+    color: #ff80ab !important; /* Texto rosa/vermelho claro */
+    box-shadow: 0 0 15px rgba(255, 64, 129, 0.1);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
+}
+
+#btn-nao:hover {
+    background: rgba(194, 24, 91, 0.3) !important;
+    box-shadow: 0 0 20px rgba(255, 64, 129, 0.4) !important;
+}
+
