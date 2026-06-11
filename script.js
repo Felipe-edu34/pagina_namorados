@@ -285,10 +285,19 @@ atualizarContador();
 function fuga() {
     const btn = document.getElementById('btn-nao');
     if (!btn) return;
+    
+    // Calcula o espaço seguro na tela
+    const maxX = window.innerWidth - btn.offsetWidth - 20;
+    const maxY = window.innerHeight - btn.offsetHeight - 20;
+    
+    // Sorteia uma nova posição garantindo que não saia da tela
+    const novoX = Math.max(10, Math.random() * maxX);
+    const novoY = Math.max(10, Math.random() * maxY);
+    
     btn.style.position = 'fixed';
-    btn.style.left = Math.random() * (window.innerWidth - 130) + 'px';
-    btn.style.top  = Math.random() * (window.innerHeight - 70) + 'px';
-    btn.style.zIndex = '9999';
+    btn.style.left = novoX + 'px';
+    btn.style.top  = novoY + 'px';
+    btn.style.zIndex = '999999';
 }
  
 function aceitou() {
