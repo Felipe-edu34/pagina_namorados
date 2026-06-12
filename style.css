@@ -1129,7 +1129,7 @@ body {
 }
  
 /* ============================================
-   QUIZ — BOTÕES INTERATIVOS
+   QUIZ E MENSAGEM DE ACEITAÇÃO
    ============================================ */
 .quiz-section {
     width: 100%;
@@ -1141,7 +1141,7 @@ body {
     background: rgba(10,4,9,0.6);
     backdrop-filter: blur(30px);
     border: 1px solid rgba(255,255,255,0.06);
-    border-radius: var(--radius-lg);
+    border-radius: 16px;
     padding: clamp(36px, 6vw, 60px) clamp(24px, 5vw, 60px);
     box-shadow: 0 40px 80px rgba(0,0,0,0.4);
 }
@@ -1151,15 +1151,186 @@ body {
     font-size: clamp(1.4rem, 4vw, 2rem);
     font-weight: 300;
     font-style: italic;
-    color: var(--cream);
+    color: #fff0f5;
     margin-bottom: 36px;
     line-height: 1.35;
 }
  
+/* ============================================
+   BOTÕES DO QUIZ (CORRIGIDOS)
+   ============================================ */
+/* ATENÇÃO: Sem !important no display para o JavaScript conseguir esconder depois! */
+.buttons {
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    min-height: 60px;
+    position: relative;
+    margin-top: 20px;
+}
+ 
+#btn-sim, #btn-nao {
+    width: 130px !important;
+    height: 50px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 1rem !important;
+    font-weight: bold !important;
+    border-radius: 8px !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+ 
+#btn-sim {
+    background: rgba(46, 125, 50, 0.2) !important;
+    border: 1px solid rgba(76, 175, 80, 0.5) !important;
+    color: #81c784 !important;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.2);
+    backdrop-filter: blur(4px);
+}
+ 
+#btn-sim:hover {
+    background: rgba(46, 125, 50, 0.4) !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+ 
+#btn-nao {
+    position: relative; /* Começa relative para não sobrepor o SIM. O JS muda isso sozinho na fuga. */
+    background: rgba(194, 24, 91, 0.2) !important;
+    border: 1px solid rgba(255, 64, 129, 0.5) !important;
+    color: #ff80ab !important;
+    box-shadow: 0 0 15px rgba(255, 64, 129, 0.2);
+    backdrop-filter: blur(4px);
+}
+ 
+#btn-nao:hover {
+    background: rgba(194, 24, 91, 0.4) !important;
+    box-shadow: 0 0 20px rgba(255, 64, 129, 0.4);
+}
 
+/* ============================================
+   MENSAGEM: "EU JÁ SABIA!" (FOTO DE REFERÊNCIA)
+   ============================================ */
+.acceptance-message {
+    display: flex !important;
+    flex-direction: column !important; /* Força o Título em cima e o texto embaixo */
+    align-items: center !important;
+    text-align: center !important;
+    font-family: 'Cormorant Garamond', serif !important;
+    font-size: clamp(1.2rem, 5vw, 1.8rem) !important;
+    font-weight: 300 !important;
+    font-style: italic !important;
+    color: #fff0f5 !important;
+    line-height: 1.5 !important;
+    animation: acceptFade 1.2s ease-out both;
+    width: 100% !important;
+}
+ 
+.acceptance-message strong {
+    font-weight: bold !important;
+    color: #ff4081 !important; /* Rosa choque brilhante */
+    font-style: normal !important;
+    font-size: clamp(2.2rem, 8vw, 3.5rem) !important;
+    margin-bottom: 15px !important;
+    text-shadow: 0 0 30px rgba(255,64,129,0.6) !important;
+}
+ 
+@keyframes acceptFade {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
  
 /* ============================================
-   EXPLOSÃO DE AMOR
+   LIGHTBOX / MODAL DE IMAGEM
+   ============================================ */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    background: rgba(5,2,8,0.93);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    align-items: center;
+    justify-content: center;
+}
+ 
+.modal-content {
+    display: block;
+    max-width: min(88vw, 900px);
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 40px 80px rgba(0,0,0,0.6);
+    animation: modalZoom 0.3s ease;
+}
+ 
+@keyframes modalZoom {
+    from { transform: scale(0.9); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+ 
+.close-modal {
+    position: absolute;
+    top: 24px; right: 28px;
+    color: rgba(255,255,255,0.4);
+    font-size: 36px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+ 
+.close-modal:hover {
+    color: #ff4081;
+    transform: rotate(90deg);
+}
+ 
+.modal-nav-btn {
+    background: rgba(10,4,9,0.7);
+    color: rgba(255,240,245,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50%;
+    width: 52px; height: 52px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+ 
+.modal-nav-btn:hover {
+    background: #c2185b;
+    color: #ffffff;
+    border-color: transparent;
+    transform: translateY(-50%) scale(1.08);
+}
+ 
+.prev-btn { left: clamp(12px, 3vw, 32px); }
+.next-btn { right: clamp(12px, 3vw, 32px); }
+ 
+.modal-indicator {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 1px;
+}
+ 
+/* ============================================
+   EXPLOSÃO DE AMOR (CHUVA DE CORAÇÕES)
    ============================================ */
 #love-explosion {
     position: fixed;
@@ -1171,7 +1342,7 @@ body {
 .explosion-heart {
     position: fixed;
     font-size: 28px;
-    animation: explodeOut 2.8s var(--ease-out) forwards;
+    animation: explodeOut 2.8s ease-out forwards;
     will-change: transform;
 }
  
@@ -1182,68 +1353,36 @@ body {
 }
  
 /* ============================================
-   RESPONSIVIDADE
+   RESPONSIVIDADE (Tudo Ajustado)
    ============================================ */
 @media (max-width: 600px) {
     .slide-btn.prev { left: -4px; }
     .slide-btn.next { right: -4px; }
- 
     .modal-nav-btn { width: 42px; height: 42px; }
     .modal-content { max-width: 94vw; }
- 
     #polaroids-container { gap: 12px; padding: 10px; }
     .polaroid { width: 44vw; }
     .polaroid img { height: 44vw; }
+    
+    .buttons { gap: 15px; }
+    #btn-sim, #btn-nao { width: 110px !important; height: 46px !important; font-size: 0.95rem !important; }
 }
  
 @media (max-width: 400px) {
     .counter { gap: 8px; }
     .counter-box { min-width: 60px; padding: 14px 12px; }
-
-}
-
-
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    position: relative;
-    min-height: 60px;
-}
-
-/* Nova estilização elegante para os botões do Quiz */
-#btn-sim {
-    background: rgba(46, 125, 50, 0.15) !important; /* Verde elegante e transparente */
-    border: 1px solid rgba(76, 175, 80, 0.4) !important;
-    color: #81c784 !important; /* Texto verde claro que brilha no fundo escuro */
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.1);
-    backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
-}
-
-#btn-sim:hover {
-    background: rgba(46, 125, 50, 0.3) !important;
-    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4) !important;
-    transform: scale(1.05);
-}
-
-#btn-nao {
-    background: rgba(194, 24, 91, 0.15) !important; /* Vermelho/Rosa escuro do próprio site */
-    border: 1px solid rgba(255, 64, 129, 0.4) !important;
-    color: #ff80ab !important; /* Texto rosa/vermelho claro */
-    box-shadow: 0 0 15px rgba(255, 64, 129, 0.1);
-    backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
-}
-
-#btn-nao:hover {
-    background: rgba(194, 24, 91, 0.3) !important;
-    box-shadow: 0 0 20px rgba(255, 64, 129, 0.4) !important;
+    
+    .envelope-wrapper { max-width: 320px !important; height: 210px !important; }
+    .envelope-top { border-left-width: 160px !important; border-right-width: 160px !important; border-top-width: 105px !important; }
+    .envelope-left, .envelope-right { border-top-width: 105px !important; border-bottom-width: 105px !important; }
+    .envelope-left { border-left-width: 160px !important; } 
+    .envelope-right { border-right-width: 160px !important; }
+    .envelope-wrapper.opened { height: 450px !important; }
+    .envelope-wrapper.opened .letter-paper { height: 410px !important; transform: translateY(-190px) !important; }
 }
 
 /* =====================================================
-   MÓDULO COMPLETO DA CARTA (ENVELOPE + PAPEL ESCURO)
+   MÓDULO DA CARTA (ENVELOPE + PAPEL ESCURO)
    ===================================================== */
 .letter-section {
     display: flex;
@@ -1259,7 +1398,7 @@ body {
     width: 100%;
     max-width: 380px;
     height: 240px;
-    background: rgba(43, 10, 46, 0.3) !important; /* Plum transparente */
+    background: rgba(43, 10, 46, 0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
     border-radius: 12px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px rgba(194, 24, 91, 0.1);
@@ -1268,222 +1407,37 @@ body {
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.envelope-wrapper:hover {
-    transform: translateY(-5px) scale(1.02);
-}
+.envelope-wrapper:hover { transform: translateY(-5px) scale(1.02); }
 
-/* Formas geométricas internas que montam o envelope */
 .envelope-top, .envelope-left, .envelope-right, .envelope-back {
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    transition: all 0.4s ease-in-out;
+    position: absolute; inset: 0; border-radius: 12px; transition: all 0.4s ease-in-out;
 }
 
-.envelope-back {
-    background: rgba(19, 8, 16, 0.6) !important; /* Deep noir */
-    z-index: 1;
-}
+.envelope-back { background: rgba(19, 8, 16, 0.6) !important; z-index: 1; }
+.envelope-top { border-top: 120px solid rgba(123, 31, 162, 0.45) !important; border-left: 190px solid transparent !important; border-right: 190px solid transparent !important; transform-origin: top; z-index: 4; }
+.envelope-left { border-left: 190px solid rgba(43, 10, 46, 0.85) !important; border-top: 120px solid transparent !important; border-bottom: 120px solid transparent !important; z-index: 3; }
+.envelope-right { border-right: 190px solid rgba(43, 10, 46, 0.85) !important; border-top: 120px solid transparent !important; border-bottom: 120px solid transparent !important; z-index: 3; }
 
-.envelope-top {
-    border-top: 120px solid rgba(123, 31, 162, 0.45) !important; /* Magenta translucido */
-    border-left: 190px solid transparent !important;
-    border-right: 190px solid transparent !important;
-    transform-origin: top;
-    z-index: 4;
-}
-
-.envelope-left {
-    border-left: 190px solid rgba(43, 10, 46, 0.85) !important;
-    border-top: 120px solid transparent !important;
-    border-bottom: 120px solid transparent !important;
-    z-index: 3;
-}
-
-.envelope-right {
-    border-right: 190px solid rgba(43, 10, 46, 0.85) !important;
-    border-top: 120px solid transparent !important;
-    border-bottom: 120px solid transparent !important;
-    z-index: 3;
-}
-
-/* Selo de Coração */
 .envelope-seal {
-    position: absolute;
-    top: calc(50% - 22px);
-    left: calc(50% - 22px);
-    width: 44px;
-    height: 44px;
-    background: #c2185b !important;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff0f5 !important;
-    box-shadow: 0 0 15px rgba(233, 30, 99, 0.6);
-    z-index: 5;
-    transition: all 0.4s ease;
+    position: absolute; top: calc(50% - 22px); left: calc(50% - 22px); width: 44px; height: 44px; background: #c2185b !important; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff0f5 !important; box-shadow: 0 0 15px rgba(233, 30, 99, 0.6); z-index: 5; transition: all 0.4s ease;
 }
+.envelope-seal span { font-size: 22px; animation: pulseHeart 1.5s infinite; }
 
-.envelope-seal span {
-    font-size: 22px;
-    animation: pulseHeart 1.5s infinite;
-}
+.envelope-prompt { position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%); font-size: 0.85rem; color: #ff80ab !important; white-space: nowrap; letter-spacing: 1px; opacity: 0.8; transition: opacity 0.3s ease; }
 
-.envelope-prompt {
-    position: absolute;
-    bottom: -35px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.85rem;
-    color: #ff80ab !important;
-    white-space: nowrap;
-    letter-spacing: 1px;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-}
-
-/* O Papel da Carta (Estilo Dark Glassmarphism) */
 .letter-paper {
-    position: absolute;
-    bottom: 5px;
-    left: 15px;
-    right: 15px;
-    height: 90%;
-    background: rgba(22, 7, 25, 0.95) !important; 
-    border: 1px solid rgba(255, 64, 129, 0.4) !important; 
-    border-radius: 12px;
-    padding: 25px 20px;
-    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(194, 24, 91, 0.3);
-    z-index: 2;
-    overflow-y: auto;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    transform: translateY(0);
-    backdrop-filter: blur(10px);
-    -ms-overflow-style: none;  
-    scrollbar-width: none;  
+    position: absolute; bottom: 5px; left: 15px; right: 15px; height: 90%; background: rgba(22, 7, 25, 0.95) !important; border: 1px solid rgba(255, 64, 129, 0.4) !important; border-radius: 12px; padding: 25px 20px; box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(194, 24, 91, 0.3); z-index: 2; overflow-y: auto; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); opacity: 0; transform: translateY(0); backdrop-filter: blur(10px); -ms-overflow-style: none; scrollbar-width: none;  
 }
+.letter-paper::-webkit-scrollbar { display: none !important; }
 
-.letter-paper::-webkit-scrollbar {
-    display: none !important;
-}
+.letter-title { font-family: 'Sacramento', cursive; font-size: clamp(2.2rem, 8vw, 2.6rem) !important; color: #ff4081 !important; text-shadow: 0 0 10px rgba(255, 64, 129, 0.5); margin-bottom: 15px; text-align: center !important; padding: 0 10px; }
+.letter-text p { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.05rem, 4.5vw, 1.25rem) !important; line-height: 1.5 !important; color: #fce4ec !important; margin-bottom: 14px; text-align: justify; font-weight: 400; letter-spacing: 0.3px; padding: 0 8px; }
+.letter-signature { font-family: 'Sacramento', cursive; font-size: 2.3rem !important; text-align: right !important; color: #ff80ab !important; text-shadow: 0 0 8px rgba(255, 128, 171, 0.4); margin-top: 20px; }
 
-.letter-title {
-    font-family: 'Sacramento', cursive;
-    font-size: 2.6rem !important;
-    color: #ff4081 !important;
-    text-shadow: 0 0 10px rgba(255, 64, 129, 0.5);
-    margin-bottom: 15px;
-    text-align: left;
-}
+.envelope-wrapper.opened { height: 420px !important; background: rgba(43, 10, 46, 0.15) !important; }
+.envelope-wrapper.opened .envelope-top { transform: rotateX(180deg) !important; z-index: 1 !important; border-top-color: rgba(123, 31, 162, 0.15) !important; }
+.envelope-wrapper.opened .letter-paper { opacity: 1 !important; height: 380px !important; transform: translateY(-160px) !important; z-index: 4 !important; }
+.envelope-wrapper.opened .envelope-seal { opacity: 0 !important; transform: scale(0) !important; pointer-events: none; }
+.envelope-wrapper.opened .envelope-prompt { opacity: 0 !important; }
 
-.letter-text p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem !important;
-    line-height: 1.6 !important;
-    color: #fce4ec !important;
-    margin-bottom: 14px;
-    text-align: justify;
-    font-weight: 400;
-    letter-spacing: 0.3px;
-}
-
-.letter-signature {
-    font-family: 'Sacramento', cursive;
-    font-size: 2.3rem !important;
-    text-align: right !important;
-    color: #ff80ab !important;
-    text-shadow: 0 0 8px rgba(255, 128, 171, 0.4);
-    margin-top: 20px;
-}
-
-/* Animações e Estados de Abertura */
-.envelope-wrapper.opened {
-    height: 420px !important;
-    background: rgba(43, 10, 46, 0.15) !important;
-}
-
-.envelope-wrapper.opened .envelope-top {
-    transform: rotateX(180deg) !important;
-    z-index: 1 !important;
-    border-top-color: rgba(123, 31, 162, 0.15) !important;
-}
-
-.envelope-wrapper.opened .letter-paper {
-    opacity: 1 !important;
-    height: 380px !important;
-    transform: translateY(-160px) !important;
-    z-index: 4 !important;
-}
-
-.envelope-wrapper.opened .envelope-seal {
-    opacity: 0 !important;
-    transform: scale(0) !important;
-    pointer-events: none;
-}
-
-.envelope-wrapper.opened .envelope-prompt {
-    opacity: 0 !important;
-}
-
-@keyframes pulseHeart {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
-}
-
-@media (max-width: 400px) {
-    .envelope-wrapper { max-width: 320px !important; height: 210px !important; }
-    .envelope-top { border-left-width: 160px !important; border-right-width: 160px !important; border-top-width: 105px !important; }
-    .envelope-left, .envelope-right { border-top-width: 105px !important; border-bottom-width: 105px !important; }
-    .envelope-left { border-left-width: 160px !important; } 
-    .envelope-right { border-right-width: 160px !important; }
-    .envelope-wrapper.opened { height: 450px !important; }
-    .envelope-wrapper.opened .letter-paper { height: 410px !important; transform: translateY(-190px) !important; }
-}
-
-/* =====================================================
-   CORREÇÃO DEFINITIVA: ALINHAMENTO DOS BOTÕES DO QUIZ
-   ===================================================== */
-.buttons {
-    display: flex !important;
-    flex-direction: row !important; /* Garante que fiquem lado a lado */
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 20px !important;          /* Espaço idêntico e seguro entre eles */
-    width: 100% !important;
-    position: relative !important;
-    margin-top: 25px !important;
-}
-
-#btn-sim, #btn-nao {
-    margin: 0 !important;
-    width: 120px !important;        /* Força os dois a terem exatamente o mesmo tamanho */
-    height: 46px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-weight: bold !important;
-    border-radius: 8px !important;
-}
-
-/* O segredo: o NÃO começa como 'relative' para respeitar o espaço do SIM */
-#btn-nao {
-    position: relative; /* ATENÇÃO: Sem '!important' aqui para o JavaScript da fuga funcionar! */
-    left: auto;
-    top: auto;
-}
-
-/* Ajuste fino e isolado para celulares */
-@media (max-width: 600px) {
-    .buttons {
-        gap: 15px !important; /* Espaçamento ligeiramente menor em telas pequenas */
-    }
-    
-    #btn-sim, #btn-nao {
-        width: 110px !important; /* Diminui sutilmente para caber em qualquer celular sem quebrar */
-        height: 42px !important;
-        font-size: 0.95rem !important;
-    }
-}
+@keyframes pulseHeart { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
