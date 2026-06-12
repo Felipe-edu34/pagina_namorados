@@ -1407,7 +1407,7 @@ body {
 }
 
 /* =====================================================
-   MÓDULO DA CARTA (ENVELOPE + PAPEL ESCURO)
+   MÓDULO DA CARTA (100% CORRIGIDO E RESPONSIVO)
    ===================================================== */
 .letter-section {
     display: flex;
@@ -1416,13 +1416,14 @@ body {
     justify-content: center;
     padding: clamp(20px, 5vw, 40px) 15px;
     width: 100%;
+    overflow: hidden; /* Evita que a carta crie barra de rolagem horizontal */
 }
 
+/* Tamanho Padrão (Computador) */
 .envelope-wrapper {
     position: relative;
-    width: 100%;
-    max-width: 380px;
-    height: 240px;
+    width: 380px !important;
+    height: 240px !important;
     background: rgba(43, 10, 46, 0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.05) !important;
     border-radius: 12px;
@@ -1430,6 +1431,7 @@ body {
     cursor: pointer;
     backdrop-filter: blur(6px);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin: 0 auto;
 }
 
 .envelope-wrapper:hover { transform: translateY(-5px) scale(1.02); }
@@ -1439,6 +1441,7 @@ body {
 }
 
 .envelope-back { background: rgba(19, 8, 16, 0.6) !important; z-index: 1; }
+
 .envelope-top { border-top: 120px solid rgba(123, 31, 162, 0.45) !important; border-left: 190px solid transparent !important; border-right: 190px solid transparent !important; transform-origin: top; z-index: 4; }
 .envelope-left { border-left: 190px solid rgba(43, 10, 46, 0.85) !important; border-top: 120px solid transparent !important; border-bottom: 120px solid transparent !important; z-index: 3; }
 .envelope-right { border-right: 190px solid rgba(43, 10, 46, 0.85) !important; border-top: 120px solid transparent !important; border-bottom: 120px solid transparent !important; z-index: 3; }
@@ -1459,6 +1462,7 @@ body {
 .letter-text p { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.05rem, 4.5vw, 1.25rem) !important; line-height: 1.5 !important; color: #fce4ec !important; margin-bottom: 14px; text-align: justify; font-weight: 400; letter-spacing: 0.3px; padding: 0 8px; }
 .letter-signature { font-family: 'Sacramento', cursive; font-size: 2.3rem !important; text-align: right !important; color: #ff80ab !important; text-shadow: 0 0 8px rgba(255, 128, 171, 0.4); margin-top: 20px; }
 
+/* Animações quando Aberto (Desktop) */
 .envelope-wrapper.opened { height: 420px !important; background: rgba(43, 10, 46, 0.15) !important; }
 .envelope-wrapper.opened .envelope-top { transform: rotateX(180deg) !important; z-index: 1 !important; border-top-color: rgba(123, 31, 162, 0.15) !important; }
 .envelope-wrapper.opened .letter-paper { opacity: 1 !important; height: 380px !important; transform: translateY(-160px) !important; z-index: 4 !important; }
@@ -1466,3 +1470,39 @@ body {
 .envelope-wrapper.opened .envelope-prompt { opacity: 0 !important; }
 
 @keyframes pulseHeart { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+/* =====================================================
+   BLOCO DE PROTEÇÃO PARA CELULARES (Telas até 450px)
+   DEVE FICAR AQUI NO FINAL PARA SOBREPOR O DESKTOP!
+   ===================================================== */
+@media (max-width: 450px) {
+    /* Reduz o tamanho do envelope inteiro para caber na tela */
+    .envelope-wrapper { 
+        width: 300px !important; 
+        height: 200px !important; 
+    }
+    
+    /* Recalcula os triângulos matematicamente perfeitos (150+150=300) */
+    .envelope-top { 
+        border-top-width: 100px !important; 
+        border-left-width: 150px !important; 
+        border-right-width: 150px !important; 
+    }
+    .envelope-left { 
+        border-left-width: 150px !important; 
+        border-top-width: 100px !important; 
+        border-bottom-width: 100px !important; 
+    }
+    .envelope-right { 
+        border-right-width: 150px !important; 
+        border-top-width: 100px !important; 
+        border-bottom-width: 100px !important; 
+    }
+    
+    /* Ajusta a abertura da carta no celular para não sair da tela */
+    .envelope-wrapper.opened { height: 420px !important; }
+    .envelope-wrapper.opened .letter-paper { 
+        height: 380px !important; 
+        transform: translateY(-150px) !important; 
+    }
+}
