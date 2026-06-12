@@ -471,3 +471,15 @@ function explosaoDeAmor() {
         }, Math.random() * 600);
     }
 }
+
+// =====================================================
+// MÓDULO DA CARTA — ABRIR E FECHAR
+// =====================================================
+function interagirCarta() {
+    const envelope = document.getElementById('envelope-main');
+    
+    // Se o envelope existir, ele liga ou desliga a classe que abre a carta
+    if (envelope) {
+        envelope.classList.toggle('opened');
+    }
+}

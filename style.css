@@ -1368,17 +1368,42 @@ body {
     #btn-sim, #btn-nao { width: 110px !important; height: 46px !important; font-size: 0.95rem !important; }
 }
  
-@media (max-width: 400px) {
+/* ============================================
+   AJUSTE DE CELULAR (Telas até 600px)
+   ============================================ */
+@media (max-width: 600px) {
+    /* Ajustes das fotos e botões */
     .counter { gap: 8px; }
     .counter-box { min-width: 60px; padding: 14px 12px; }
     
-    .envelope-wrapper { max-width: 320px !important; height: 210px !important; }
-    .envelope-top { border-left-width: 160px !important; border-right-width: 160px !important; border-top-width: 105px !important; }
-    .envelope-left, .envelope-right { border-top-width: 105px !important; border-bottom-width: 105px !important; }
+    /* Trava o tamanho do envelope para caber em qualquer tela de celular */
+    .envelope-wrapper { 
+        width: 320px !important; 
+        max-width: 320px !important; 
+        height: 210px !important; 
+    }
+    
+    /* Recalcula os triângulos para não estourarem o limite */
+    .envelope-top { 
+        border-left-width: 160px !important; 
+        border-right-width: 160px !important; 
+        border-top-width: 105px !important; 
+    }
+    .envelope-left, .envelope-right { 
+        border-top-width: 105px !important; 
+        border-bottom-width: 105px !important; 
+    }
     .envelope-left { border-left-width: 160px !important; } 
     .envelope-right { border-right-width: 160px !important; }
-    .envelope-wrapper.opened { height: 450px !important; }
-    .envelope-wrapper.opened .letter-paper { height: 410px !important; transform: translateY(-190px) !important; }
+    
+    /* Ajuste da altura e posição do papel quando a carta abre */
+    .envelope-wrapper.opened { 
+        height: 400px !important; 
+    }
+    .envelope-wrapper.opened .letter-paper { 
+        height: 360px !important; 
+        transform: translateY(-170px) !important; 
+    }
 }
 
 /* =====================================================
